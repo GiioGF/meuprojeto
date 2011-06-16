@@ -1,38 +1,28 @@
 <?php
+
 /**
  * Description of conexaoSingleton
  *
  * @author Savio
  */
-class conexaoSingleton {
+class ConexaoSingleton {
 
-// Guarda uma instância da classe
-    static private $instance;
-
-    // Um construtor privado
-    private function __construct() {
-        $link = mysql_connect('localhost', 'root', '');
-        
-        if (!$link) {
-            die('Não foi possível conectar: ' . mysql_error() . "<br><br>");
-        }
-        echo '<br><br>Conexão bem sucedida.<br><br>';
-
-        $db_selected = mysql_select_db('teste', $link);
-        if (!$db_selected) {
-            die('Não foi possível selecionar : ' . mysql_error());
-        }
+ private static $intance;
+ 
+    //Declaramos o construtor privado,
+    //para impedir que seja instanciado
+    //diretamente (new Singleton())
+    private function Singleton() {
     }
-
-    // O método singleton 
-    static public function singleton() {
-        if (!isset(self::$instance)) {
-            $c = __CLASS__;
-            self::$instance = new $c;
-        }
-
-        return self::$instance;
+    public static function getInstance() {
+ 
+        if(self::$intance == null)
+            self::$intance = new Singleton();
+ 
+        return self::$intance;
+ 
     }
 }
+
 
 ?>
